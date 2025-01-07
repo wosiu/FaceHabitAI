@@ -1,14 +1,13 @@
 import cv2
 import os
 import mediapipe as mp
-import simpleaudio as sa
+from playsound import playsound
 
 mp_hands = mp.solutions.hands
 mp_face_mesh = mp.solutions.face_mesh
 hands = mp_hands.Hands(min_detection_confidence=0.7, min_tracking_confidence=0.7)
 face_mesh = mp_face_mesh.FaceMesh()
-wave_path = os.path.join(os.path.dirname(__file__), "media/mixkit-facility-alarm-908.wav")
-wave_obj = sa.WaveObject.from_wave_file(wave_path)
+alert_path = os.path.join(os.path.dirname(__file__), "media/japan-eas-alarm-277877.mp3")
 
 
 def is_touching_nose(hand_results, face_results, frame_shape):
@@ -30,9 +29,7 @@ def is_touching_nose(hand_results, face_results, frame_shape):
 
 
 def play_alert_sound():
-    play_obj = wave_obj.play()
-    play_obj.wait_done()
-
+    playsound(alert_path)
 
 # Start camera
 cap = cv2.VideoCapture(0)
@@ -53,7 +50,7 @@ while cap.isOpened():
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
     if is_touching_nose(hand_results, face_results, frame.shape):
-        # play_alert_sound()
+        play_alert_sound()
         cv2.putText(image, "Don't touch your nose!", (50, 50),
                     cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 

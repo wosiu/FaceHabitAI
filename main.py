@@ -13,7 +13,7 @@ mp_hands = mp.solutions.hands
 mp_face_mesh = mp.solutions.face_mesh
 hands = mp_hands.Hands(min_detection_confidence=0.7, min_tracking_confidence=0.7)
 face_mesh = mp_face_mesh.FaceMesh()
-alert_path = os.path.join(os.path.dirname(__file__), "media/japan-eas-alarm-277877.mp3")
+alert_path = os.path.join(os.path.dirname(__file__), "media/stop-it.m4a")
 
 def is_touching_nose(hand_results, face_results, frame_shape):
     if not hand_results.multi_hand_landmarks or not face_results.multi_face_landmarks:
